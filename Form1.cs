@@ -139,39 +139,51 @@ namespace CharactiniotisTest
 
         private void Button_Update_Click(object sender, EventArgs e)
         {
-            int client_ID = Handler_TransformData.SetID(toolStripTextBox8.Text);
-            string client_FirstName = Handler_TransformData.SetFirstName(toolStripTextBox9.Text);
-            string client_LastName = Handler_TransformData.SetLastName(toolStripTextBox10.Text);
-            string client_Address = Handler_TransformData.SetAddress(toolStripTextBox12.Text);
-            int client_PostalCode = Handler_TransformData.SetPostalCode(toolStripTextBox11.Text);
-            long client_PhoneNumber = Handler_TransformData.SetPhoneNumber(toolStripTextBox13.Text);
-            string client_Email = Handler_TransformData.SetEmail(toolStripTextBox14.Text);
+            //int client_ID = Handler_TransformData.SetID(toolStripTextBox8.Text);
+            //string client_FirstName = Handler_TransformData.SetFirstName(toolStripTextBox9.Text);
+            //string client_LastName = Handler_TransformData.SetLastName(toolStripTextBox10.Text);
+            //string client_Address = Handler_TransformData.SetAddress(toolStripTextBox12.Text);
+            //int client_PostalCode = Handler_TransformData.SetPostalCode(toolStripTextBox11.Text);
+            //long client_PhoneNumber = Handler_TransformData.SetPhoneNumber(toolStripTextBox13.Text);
+            //string client_Email = Handler_TransformData.SetEmail(toolStripTextBox14.Text);
 
-            bool is_Client_ID_Correct = Handler_CheckIfProperData.Check_Client_ID_ProperInfo(client_ID);
-            if (is_Client_ID_Correct) Handler_Database.UpdateClient(client_ID, client_FirstName, client_LastName, client_Address, client_PostalCode, client_PhoneNumber, client_Email);
-
+            //bool is_Client_ID_Correct = Handler_CheckIfProperData.Check_Client_ID_ProperInfo(client_ID);
+            //if (is_Client_ID_Correct) Handler_Database.UpdateClient(client_ID, client_FirstName, client_LastName, client_Address, client_PostalCode, client_PhoneNumber, client_Email);
         }
 
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             DataGridView table_Clients = sender as DataGridView;
+
             string newValue = table_Clients.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
             string columnName = table_Clients.Columns[e.ColumnIndex].Name;
             int clientID = Convert.ToInt32(table_Clients.Rows[e.RowIndex].Cells["ClientID"].Value); // Assuming there's a ClientID column
-
-            // Update the database based on the changed value
-            string query = $"UPDATE Clients SET {columnName} = @NewValue WHERE ClientID = @ClientID";
-
-            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            
+            bool isValueProper = true;             
+            if (columnName == "firstname") { string client_FirstName = Handler_TransformData.SetFirstName(newValue); isValueProper = Handler_CheckIfProperData.IsValidFirstName(client_FirstName); }
+            if (columnName == "lastname") { string client_LastName = Handler_TransformData.SetLastName(newValue); isValueProper = Handler_CheckIfProperData.IsValidLastName(client_LastName); }
+            if (columnName == "address") { string client_Address = Handler_TransformData.SetAddress(newValue); isValueProper = Handler_CheckIfProperData.IsValidAddress(client_Address); }
+            if (columnName == "postalcode") { int client_PostalCode = Handler_TransformData.SetPostalCode(newValue); isValueProper = Handler_CheckIfProperData.IsValidPostalCode(client_PostalCode); }
+            if (columnName == "phonenumber") { long client_PhoneNumber = Handler_TransformData.SetPhoneNumber(newValue); isValueProper = Handler_CheckIfProperData.IsValidPhoneNumber(client_PhoneNumber); }
+            if (columnName == "email") { string client_Email = Handler_TransformData.SetEmail(newValue); isValueProper = Handler_CheckIfProperData.IsValidEmail(client_Email); }
+            
+            if (isValueProper)
             {
-                connection.Open();
-                using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                // Update the database based on the changed value
+                string query = $"UPDATE Clients SET {columnName} = @NewValue WHERE ClientID = @ClientID";
+
+                using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
                 {
-                    command.Parameters.AddWithValue("@NewValue", newValue);
-                    command.Parameters.AddWithValue("@ClientID", clientID);
-                    command.ExecuteNonQuery();
+                    connection.Open();
+                    using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@NewValue", newValue);
+                        command.Parameters.AddWithValue("@ClientID", clientID);
+                        command.ExecuteNonQuery();
+                    }
                 }
             }
+            // need to reload the table
         }
     }    
 }
