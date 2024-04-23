@@ -129,7 +129,7 @@ namespace CharactiniotisTest
             string client_Email = Handler_TransformData.SetEmail(toolStripTextBox7.Text);
 
             bool allElementsAreProper = Handler_CheckIfProperData.Check_Client_ADD_ProperInfo(client_FirstName, client_LastName, client_Address, client_PostalCode, client_PhoneNumber, client_Email);
-            
+
             if (allElementsAreProper) Handler_Database.AddClient(client_FirstName, client_LastName, client_Address, client_PostalCode, client_PhoneNumber, client_Email);
             // Reload clients data after insertion
             LoadClients();
@@ -149,7 +149,29 @@ namespace CharactiniotisTest
 
             bool is_Client_ID_Correct = Handler_CheckIfProperData.Check_Client_ID_ProperInfo(client_ID);
             if (is_Client_ID_Correct) Handler_Database.UpdateClient(client_ID, client_FirstName, client_LastName, client_Address, client_PostalCode, client_PhoneNumber, client_Email);
-            
+
         }
-    }
+
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView table_Clients = sender as DataGridView;
+            string newValue = table_Clients.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+            string columnName = table_Clients.Columns[e.ColumnIndex].Name;
+            int clientID = Convert.ToInt32(table_Clients.Rows[e.RowIndex].Cells["ClientID"].Value); // Assuming there's a ClientID column
+
+            // Update the database based on the changed value
+            string query = $"UPDATE Clients SET {columnName} = @NewValue WHERE ClientID = @ClientID";
+
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                connection.Open();
+                using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@NewValue", newValue);
+                    command.Parameters.AddWithValue("@ClientID", clientID);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+    }    
 }
