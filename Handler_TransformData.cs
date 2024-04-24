@@ -133,7 +133,7 @@ namespace CharactiniotisTest
             if (!string.IsNullOrWhiteSpace(_title))
             {
                 _title = _title.Trim();
-                _title = _title.Replace(" ", "");
+                _title = _title.Replace("  ", " ");
                 _title = _title.Replace("\t", "");
                 _title = _title.Replace("\n", "");
                 _title = char.ToUpper(_title[0]) + _title.Substring(1);
@@ -146,7 +146,7 @@ namespace CharactiniotisTest
             if (!string.IsNullOrWhiteSpace(_author))
             {
                 _author = _author.Trim();
-                _author = _author.Replace(" ", "");
+                _author = _author.Replace("  ", " ");
                 _author = _author.Replace("\t", "");
                 _author = _author.Replace("\n", "");
                 _author = char.ToUpper(_author[0]) + _author.Substring(1);

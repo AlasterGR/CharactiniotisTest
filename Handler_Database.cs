@@ -49,19 +49,16 @@ namespace CharactiniotisTest
                 command.ExecuteNonQuery();
             }
         }
-        public static void CreateOrder(/*long order_ID,*/ long client_ID,/* DateTime order_Date,*/ long book_ISBN/*, int order_Quantity*/)
+        public static void CreateOrder(long client_ID, long book_ISBN)
         {
             int order_ID = -1; // Initialize orderID to a default value
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
             {
                 string query = "INSERT INTO OrderHeader (ClientID) VALUES (@ClientID) RETURNING OrderID";
                 NpgsqlCommand command = new NpgsqlCommand(query, connection);
-                //command.Parameters.AddWithValue("@OrderID", order_ID);
                 command.Parameters.AddWithValue("@ClientID", client_ID);
-                //command.Parameters.AddWithValue("@OrderDate", null);
 
                 connection.Open();
-                //command.ExecuteNonQuery();
                 order_ID = (int)command.ExecuteScalar();
             }
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
@@ -71,7 +68,6 @@ namespace CharactiniotisTest
 
                 command.Parameters.AddWithValue("@OrderID", order_ID);
                 command.Parameters.AddWithValue("@ISBN", book_ISBN);
-                //command.Parameters.AddWithValue("@Quantity", order_Quantity);
 
                 connection.Open();
                 command.ExecuteNonQuery();

@@ -11,11 +11,9 @@ namespace CharactiniotisTest
     {
         // Connection string for your SQL Server
         private string connectionString = "Host=localhost;Port=5432;Username=postgres;Password=postgres;Database=postgres";
-        //SqlServer.Connection("YourLocalServerName", "Database", "Your Query here...");
 
         public DataGridView table_Clients, table_Books, table_OrdersHeader, table_OrdersDetails;
         public Label label_SystemMessage;
-        public ToolStripControlHost orderDateTimePicker;
 
         public Form1()
         {
@@ -38,26 +36,8 @@ namespace CharactiniotisTest
         {
             label_SystemMessage.Text = "Application initialized.";
             LoadAllTables();
-            LoadUI();
         }
-        public void LoadUI()
-        {
-            #region Create the Date picker for the Order tables
-            // Create a ToolStripControlHost for the DateTimePicker
-            ToolStripControlHost dateTimePickerHost = new ToolStripControlHost(new DateTimePicker());
-
-            // Add padding to ensure proper layout
-            dateTimePickerHost.Padding = new Padding(2);
-            dateTimePickerHost.Width = 300;
-            orderDateTimePicker = dateTimePickerHost;
-            // Add the ToolStripControlHost to the ToolStripMenuItem
-            // ToolStripMenuItem toolStripMenuItemWithDateTimePicker = new ToolStripMenuItem("Select Date");
-            //toolStripMenuItemWithDateTimePicker.DropDownItems.Add(dateTimePickerHost);
-
-            // Add the ToolStripMenuItem to your existing ToolStrip or MenuStrip
-            toolStripMenuItem13.DropDownItems.Add(dateTimePickerHost); // Replace toolStrip1 with your ToolStrip or MenuStrip
-            #endregion
-        }
+       
         public void LoadAllTables()
         {
             LoadClients();
@@ -102,9 +82,16 @@ namespace CharactiniotisTest
             }
         }
         private void LoadOrders()
-        {
+        {           
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
             {
+                string deleteQuery = "DELETE FROM OrderHeader WHERE NOT EXISTS (SELECT 1 FROM OrderDetails WHERE OrderDetails.OrderID = OrderHeader.OrderID)";
+                using (NpgsqlCommand deleteCommand = new NpgsqlCommand(deleteQuery, connection))
+                {
+                    connection.Open();
+                    deleteCommand.ExecuteNonQuery(); // Delete orphaned rows from OrderHeader
+                }
+
                 string query = "SELECT * FROM OrderHeader";
                 NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(query, connection);
                 DataTable table = new DataTable();
@@ -151,8 +138,8 @@ namespace CharactiniotisTest
             string client_Email = Handler_TransformData.SetEmail(toolStripTextBox7.Text);
 
             bool allElementsAreProper = Handler_CheckIfProperData.Check_Client_INSERT_ProperInfo(client_FirstName, client_LastName, client_Address, client_PostalCode, client_PhoneNumber, client_Email);
-
             if (allElementsAreProper) Handler_Database.AddClient(client_FirstName, client_LastName, client_Address, client_PostalCode, client_PhoneNumber, client_Email);
+
             // Reload clients data after insertion
             LoadClients(); // reload the table
         }
@@ -164,23 +151,17 @@ namespace CharactiniotisTest
             string book_Summary = toolStripTextBox11.Text;
 
             bool allElementsAreProper = Handler_CheckIfProperData.Check_Book_INSERT_ProperInfo(book_ISBN, book_Title, book_Author);
-
             if (allElementsAreProper) Handler_Database.AddBook(book_ISBN, book_Title, book_Author, book_Summary);
+
             // Reload clients data after insertion
             LoadBooks(); // reload the table
         }
         private void Button_Order_Create_Click(object sender, EventArgs e)
         {
-            //long order_ID = Handler_TransformData.SetOrderID(toolStripTextBox16.Text);
             long client_ID = Handler_TransformData.SetClientID(toolStripTextBox15.Text);
-            //DateTime order_Date = ((DateTimePicker)orderDateTimePicker.Control).Value;
-            long book_ISBN = Handler_TransformData.SetISBN(toolStripTextBox13.Text);
-            //int order_Quantity = Handler_TransformData.SetOrderQuantity(toolStripTextBox12.Text);
+            long book_ISBN = Handler_TransformData.SetISBN(toolStripTextBox13.Text);            
+            Handler_Database.CreateOrder(client_ID,book_ISBN);
 
-            //bool allElementsAreProper = Handler_CheckIfProperData.Check_Order_CREATE_ProperInfo(/*order_ID,*/ client_ID,/* order_Date,*/ book_ISBN/*, order_Quantity*/);
-
-            //if (allElementsAreProper) 
-            Handler_Database.CreateOrder(/*order_ID,*/ client_ID, /*order_Date,*/ book_ISBN/*, order_Quantity*/);
             // Reload clients data after insertion
             LoadOrders(); // reload the table
             LoadDetails();
@@ -246,6 +227,7 @@ namespace CharactiniotisTest
                     command.ExecuteNonQuery();
                 }
             }
+            LoadClients();
         }
 
         private void Table_BOOKS_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -345,6 +327,7 @@ namespace CharactiniotisTest
                     }
                 }
             }
+            LoadOrders();
             LoadDetails(); // reload the table
         }
 
@@ -365,6 +348,7 @@ namespace CharactiniotisTest
                     command.ExecuteNonQuery();
                 }
             }
+            LoadClients();
         }
         private void Table_BOOKS_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
@@ -383,6 +367,7 @@ namespace CharactiniotisTest
                     command.ExecuteNonQuery();
                 }
             }
+            LoadBooks();
         }
         private void Table_ORDERHeader_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
@@ -401,6 +386,8 @@ namespace CharactiniotisTest
                     command.ExecuteNonQuery();
                 }
             }
+            LoadOrders(); // reload the table
+            LoadDetails();
         }
         private void Table_ORDERDetails_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
@@ -421,6 +408,8 @@ namespace CharactiniotisTest
                     command.ExecuteNonQuery();
                 }
             }
+            LoadOrders(); // reload the table
+            LoadDetails();
         }
 
     }
