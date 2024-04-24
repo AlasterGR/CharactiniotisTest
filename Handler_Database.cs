@@ -48,7 +48,31 @@ namespace CharactiniotisTest
                 connection.Open();
                 command.ExecuteNonQuery();
             }
+        }
+        public static void CreateOrder(/*long order_ID,*/ long client_ID, DateTime order_Date, long book_ISBN/*, int order_Quantity*/)
+        {
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                string query = "INSERT INTO OrderHeader (ClientID, OrderDate) VALUES (@ClientID, @OrderDate)";
+                NpgsqlCommand command = new NpgsqlCommand(query, connection);
+                //command.Parameters.AddWithValue("@OrderID", order_ID);
+                command.Parameters.AddWithValue("@ClientID", client_ID);
+                command.Parameters.AddWithValue("@OrderDate", order_Date);
 
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+            //using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            //{
+            //    string query = "INSERT INTO OrderDetails (OrderID, ISBN, Quantity) VALUES (@OrderID, @ISBN, @Quantity) WHERE ClientID = @ClientID";
+            //    NpgsqlCommand command = new NpgsqlCommand(query, connection);
+            //    command.Parameters.AddWithValue("@OrderID", order_ID);
+            //    command.Parameters.AddWithValue("@ISBN", book_ISBN);
+            //    command.Parameters.AddWithValue("@Quantity", order_Quantity);
+
+            //    connection.Open();
+            //    command.ExecuteNonQuery();
+            //}
         }
         public static void UpdateClient(int _clientId, string _firstName, string _lastName, string _address, int _postalCode, long _phoneNumber, string _email)
         {

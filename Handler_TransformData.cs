@@ -156,6 +156,40 @@ namespace CharactiniotisTest
         }
         #endregion
         #region ORDERS header table
+        public static long SetOrderID(string _ID)
+        {
+            long _ID_Number = 0;
+            if (!string.IsNullOrWhiteSpace(_ID))
+            {
+                _ID = _ID.Trim();
+                _ID = _ID.Replace(" ", "");
+                _ID = _ID.Replace("\t", "");
+                _ID = _ID.Replace("\n", "");
+                if (!long.TryParse(_ID, out _ID_Number))
+                {
+                    MessageBox.Show("ID could not be parsed as number. Please, make sure you are inputing numeric digits only.");
+                }
+            }
+            //else MessageBox.Show("Order ID is empty");
+            return _ID_Number;
+        }
+        public static long SetClientID(string _ID)
+        {
+            long _ID_Number = 0;
+            if (!string.IsNullOrWhiteSpace(_ID))
+            {
+                _ID = _ID.Trim();
+                _ID = _ID.Replace(" ", "");
+                _ID = _ID.Replace("\t", "");
+                _ID = _ID.Replace("\n", "");
+                if (!long.TryParse(_ID, out _ID_Number))
+                {
+                    MessageBox.Show("ID could not be parsed as number. Please, make sure you are inputing numeric digits only.");
+                }
+            }
+            //else MessageBox.Show("Client ID is empty");
+            return _ID_Number;
+        }
         public static string SetOrderDate(string _date)
         {
             if (!string.IsNullOrWhiteSpace(_date))
@@ -167,6 +201,23 @@ namespace CharactiniotisTest
             }
             //else MessageBox.Show("Order Date is empty");
             return _date;
+        }
+        public static int SetOrderQuantity(string _quantity)
+        {
+            int _quantity_Number = 0;
+            if (!string.IsNullOrWhiteSpace(_quantity))
+            {
+                _quantity = _quantity.Trim();
+                _quantity = _quantity.Replace(" ", "");
+                _quantity = _quantity.Replace("\t", "");
+                _quantity = _quantity.Replace("\n", "");
+                if (!int.TryParse(_quantity, out _quantity_Number))
+                {
+                    MessageBox.Show("Order Quantity not be parsed as number. Please, make sure you are inputing numeric digits only.");
+                }
+            }
+            //else MessageBox.Show("Order Quantity is empty");
+            return _quantity_Number;
         }
         #endregion
         #region ORDERS details table

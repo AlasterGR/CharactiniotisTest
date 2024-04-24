@@ -15,6 +15,8 @@ namespace CharactiniotisTest
 
         public DataGridView table_Clients, table_Books, table_OrdersHeader, table_OrdersDetails;
         public Label label_SystemMessage;
+        public ToolStripControlHost orderDateTimePicker;
+
         public Form1()
         {
             InitializeComponent();
@@ -36,8 +38,26 @@ namespace CharactiniotisTest
         {
             label_SystemMessage.Text = "Application initialized.";
             LoadAllTables();
+            LoadUI();
         }
+        public void LoadUI()
+        {
+            #region Create the Date picker for the Order tables
+            // Create a ToolStripControlHost for the DateTimePicker
+            ToolStripControlHost dateTimePickerHost = new ToolStripControlHost(new DateTimePicker());
 
+            // Add padding to ensure proper layout
+            dateTimePickerHost.Padding = new Padding(2);
+            dateTimePickerHost.Width = 300;
+            orderDateTimePicker = dateTimePickerHost;
+            // Add the ToolStripControlHost to the ToolStripMenuItem
+            // ToolStripMenuItem toolStripMenuItemWithDateTimePicker = new ToolStripMenuItem("Select Date");
+            //toolStripMenuItemWithDateTimePicker.DropDownItems.Add(dateTimePickerHost);
+
+            // Add the ToolStripMenuItem to your existing ToolStrip or MenuStrip
+            toolStripMenuItem13.DropDownItems.Add(dateTimePickerHost); // Replace toolStrip1 with your ToolStrip or MenuStrip
+            #endregion
+        }
         public void LoadAllTables()
         {
             LoadClients();
@@ -47,7 +67,8 @@ namespace CharactiniotisTest
             label_SystemMessage.Text = "Reloaded all tables.";
         }
 
-        // Load clients into DataGridView
+        #region (Re)Load the tables
+        // We use BeginInvoke to avoid crashing the app :execute asynchronously, allowing the event handler to complete before the reload is executed, thus avoiding the reentrant call issue.
         private void LoadClients()
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
@@ -56,12 +77,14 @@ namespace CharactiniotisTest
                 NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(query, connection);
                 DataTable table = new DataTable();
                 adapter.Fill(table);
-                table_Clients.DataSource = table;
-            }
-            table_Clients.Columns["ClientID"].ReadOnly = true; // have the primary key columns non-editable
+                BeginInvoke(new Action(() =>
+                {
+                    table_Clients.DataSource = table;
+                    table_Clients.Columns["ClientID"].ReadOnly = true; // have the primary key columns non-editable
+                    table_Clients.AllowUserToAddRows = false;
+                }));
+            }            
         }
-
-        // Load books into DataGridView
         private void LoadBooks()
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
@@ -70,12 +93,14 @@ namespace CharactiniotisTest
                 NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(query, connection);
                 DataTable table = new DataTable();
                 adapter.Fill(table);
-                table_Books.DataSource = table;
+                BeginInvoke(new Action(() =>
+                {
+                    table_Books.DataSource = table;
+                    table_Books.Columns["ISBN"].ReadOnly = true; // have the primary key columns non-editable
+                    table_Books.AllowUserToAddRows = false;
+                }));
             }
-            table_Books.Columns["ISBN"].ReadOnly = true; // have the primary key columns non-editable
         }
-
-        // Load orders into DataGridView
         private void LoadOrders()
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
@@ -84,11 +109,14 @@ namespace CharactiniotisTest
                 NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(query, connection);
                 DataTable table = new DataTable();
                 adapter.Fill(table);
-                table_OrdersHeader.DataSource = table;
-            }
-            table_OrdersHeader.Columns["OrderID"].ReadOnly = true; // have the primary key columns non-editable
+                BeginInvoke(new Action(() =>
+                {
+                    table_OrdersHeader.DataSource = table;
+                    table_OrdersHeader.Columns["OrderID"].ReadOnly = true; // have the primary key columns non-editable
+                    table_OrdersHeader.AllowUserToAddRows = false;
+                }));
+            }            
         }
-        // Load orders into DataGridView
         private void LoadDetails()
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
@@ -97,12 +125,17 @@ namespace CharactiniotisTest
                 NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(query, connection);
                 DataTable table = new DataTable();
                 adapter.Fill(table);
-                table_OrdersDetails.DataSource = table;
+                BeginInvoke(new Action(() =>
+                {
+                    table_OrdersDetails.DataSource = table;
+                    table_OrdersDetails.Columns["OrderID"].ReadOnly = true; // have the primary key columns non-editable
+                    table_OrdersDetails.Columns["ISBN"].ReadOnly = true; // have the primary key columns non-editable
+                    table_OrdersDetails.AllowUserToAddRows = false;
+                }));
             }
-            table_OrdersDetails.Columns["OrderID"].ReadOnly = true; // have the primary key columns non-editable
-            table_OrdersDetails.Columns["ISBN"].ReadOnly = true; // have the primary key columns non-editable
         }
-
+        #endregion
+        #region Buttons
         private void Button_CONNECT_Click(object sender, EventArgs e)
         {
             LoadAllTables();
@@ -121,7 +154,7 @@ namespace CharactiniotisTest
 
             if (allElementsAreProper) Handler_Database.AddClient(client_FirstName, client_LastName, client_Address, client_PostalCode, client_PhoneNumber, client_Email);
             // Reload clients data after insertion
-            LoadClients();
+            LoadClients(); // reload the table
         }
         private void Button_Book_Insert_Click(object sender, EventArgs e)
         {
@@ -134,9 +167,24 @@ namespace CharactiniotisTest
 
             if (allElementsAreProper) Handler_Database.AddBook(book_ISBN, book_Title, book_Author, book_Summary);
             // Reload clients data after insertion
-            LoadBooks();
+            LoadBooks(); // reload the table
         }
+        private void Button_Order_Create_Click(object sender, EventArgs e)
+        {
+            //long order_ID = Handler_TransformData.SetOrderID(toolStripTextBox16.Text);
+            long client_ID = Handler_TransformData.SetClientID(toolStripTextBox15.Text);
+            DateTime order_Date = ((DateTimePicker)orderDateTimePicker.Control).Value;
+            long book_ISBN = Handler_TransformData.SetISBN(toolStripTextBox13.Text);
+            //int order_Quantity = Handler_TransformData.SetOrderQuantity(toolStripTextBox12.Text);
 
+            bool allElementsAreProper = Handler_CheckIfProperData.Check_Order_CREATE_ProperInfo(/*order_ID,*/ client_ID, order_Date, book_ISBN/*, order_Quantity*/);
+
+            if (allElementsAreProper) Handler_Database.CreateOrder(/*order_ID,*/ client_ID, order_Date, book_ISBN/*, order_Quantity*/);
+            // Reload clients data after insertion
+            LoadOrders(); // reload the table
+            LoadDetails();
+        }
+        #endregion
 
         private void Table_CLIENTS_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
@@ -170,7 +218,7 @@ namespace CharactiniotisTest
                     }
                 }
             }
-            LoadClients(); // crashes the app, need to fix it or at least show a message prompting the user to reload through the button afterwards... ?
+            LoadClients(); // reload the table
         }
         private void Table_BOOKS_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
@@ -200,7 +248,7 @@ namespace CharactiniotisTest
                     }
                 }
             }
-            LoadClients(); // crashes the app, need to fix it or at least show a message prompting the user to reload through the button afterwards... ?
+            LoadBooks(); // reload the table
         }
         private void Table_ORDERS_Header_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
@@ -234,7 +282,8 @@ namespace CharactiniotisTest
                     }
                 }
             }
-            LoadClients(); // crashes the app, need to fix it or at least show a message prompting the user to reload through the button afterwards... ?
+            LoadOrders(); // reload the table
+            LoadDetails();
         }
         private void Table_ORDERS_Details_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
@@ -268,7 +317,7 @@ namespace CharactiniotisTest
                     }
                 }
             }
-            LoadClients(); // crashes the app, need to fix it or at least show a message prompting the user to reload through the button afterwards... ?
+            LoadDetails(); // reload the table
         }
     }
 }

@@ -92,7 +92,7 @@ namespace CharactiniotisTest
         }
         public static bool IsValidPostalCode(int _postalCode)
         {
-            if (string.IsNullOrEmpty(_postalCode.ToString()) || (_postalCode >= 1000 && _postalCode <= 21999))
+            if (string.IsNullOrEmpty(_postalCode.ToString()) || !(_postalCode >= 1000 && _postalCode <= 21999))
             {
                 // Improper data
                 MessageBox.Show("Postal code is invalid. Please, make sure that you only input 5-digit numbers between 1000 and 21999.");
@@ -112,7 +112,7 @@ namespace CharactiniotisTest
         }
         public static bool IsValidEmail(string _email)
         {
-            if (string.IsNullOrEmpty(_email) || !isStringAnEmail(_email))
+            if (/*string.IsNullOrEmpty(_email) ||*/ !isStringAnEmail(_email))
             {
                 MessageBox.Show("Email is invalid. Please, make sure that you input a proper email type string of up to 320 characters.");
                 return false;
@@ -155,6 +155,12 @@ namespace CharactiniotisTest
         }
         #endregion
         #region Orders
+        public static bool Check_Order_CREATE_ProperInfo(/*long order_ID,*/ long client_ID, DateTime order_Date, long book_ISBN/*, int order_Quantity*/)
+        {
+            bool allElementsAreProper = true;
+            //bool allElementsAreProper = IsValidFirstName(_firstName) && IsValidLastName(_lastName) && IsValidAddress(_address) && IsValidPostalCode(_postalCode) && IsValidPhoneNumber(_phoneNumber) && IsValidEmail(_email);
+            return allElementsAreProper;
+        }
         #endregion
         static private bool isStringAnEmail(string _email)
         {
