@@ -370,6 +370,7 @@
             toolStripMenuItem13.Name = "toolStripMenuItem13";
             toolStripMenuItem13.Size = new Size(538, 66);
             toolStripMenuItem13.Text = "Order Date";
+            toolStripMenuItem13.Visible = false;
             // 
             // toolStripSeparator3
             // 
@@ -411,6 +412,7 @@
             toolStripMenuItem16.Name = "toolStripMenuItem16";
             toolStripMenuItem16.Size = new Size(538, 66);
             toolStripMenuItem16.Text = "CREATE";
+            toolStripMenuItem16.Click += Button_Order_Create_Click;
             // 
             // dataGridView3
             // 

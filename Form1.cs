@@ -173,13 +173,14 @@ namespace CharactiniotisTest
         {
             //long order_ID = Handler_TransformData.SetOrderID(toolStripTextBox16.Text);
             long client_ID = Handler_TransformData.SetClientID(toolStripTextBox15.Text);
-            DateTime order_Date = ((DateTimePicker)orderDateTimePicker.Control).Value;
+            //DateTime order_Date = ((DateTimePicker)orderDateTimePicker.Control).Value;
             long book_ISBN = Handler_TransformData.SetISBN(toolStripTextBox13.Text);
             //int order_Quantity = Handler_TransformData.SetOrderQuantity(toolStripTextBox12.Text);
 
-            bool allElementsAreProper = Handler_CheckIfProperData.Check_Order_CREATE_ProperInfo(/*order_ID,*/ client_ID, order_Date, book_ISBN/*, order_Quantity*/);
+            //bool allElementsAreProper = Handler_CheckIfProperData.Check_Order_CREATE_ProperInfo(/*order_ID,*/ client_ID,/* order_Date,*/ book_ISBN/*, order_Quantity*/);
 
-            if (allElementsAreProper) Handler_Database.CreateOrder(/*order_ID,*/ client_ID, order_Date, book_ISBN/*, order_Quantity*/);
+            //if (allElementsAreProper) 
+            Handler_Database.CreateOrder(/*order_ID,*/ client_ID, /*order_Date,*/ book_ISBN/*, order_Quantity*/);
             // Reload clients data after insertion
             LoadOrders(); // reload the table
             LoadDetails();

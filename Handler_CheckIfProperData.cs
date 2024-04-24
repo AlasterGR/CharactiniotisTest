@@ -155,7 +155,7 @@ namespace CharactiniotisTest
         }
         #endregion
         #region Orders
-        public static bool Check_Order_CREATE_ProperInfo(/*long order_ID,*/ long client_ID, DateTime order_Date, long book_ISBN/*, int order_Quantity*/)
+        public static bool Check_Order_CREATE_ProperInfo(/*long order_ID,*/ long client_ID, /*DateTime order_Date,*/ long book_ISBN/*, int order_Quantity*/)
         {
             bool allElementsAreProper = true;
             //bool allElementsAreProper = IsValidFirstName(_firstName) && IsValidLastName(_lastName) && IsValidAddress(_address) && IsValidPostalCode(_postalCode) && IsValidPhoneNumber(_phoneNumber) && IsValidEmail(_email);
