@@ -9,7 +9,7 @@ namespace CharactiniotisTest
 {
     internal partial class Handler_TransformData
     {
-        //public static bool 
+        #region CLIENTS table
         public static int SetID(string _iD)
         {
             int _iD_Integer = 0;
@@ -109,8 +109,72 @@ namespace CharactiniotisTest
             }               
             return _email;
         }
+        #endregion
+        #region BOOKS table
+        public static long SetISBN(string _isbn)
+        {
+            long _isbn_Number = 0;
+            if (!string.IsNullOrWhiteSpace(_isbn))
+            {
+                _isbn = _isbn.Trim();
+                _isbn = _isbn.Replace(" ", "");
+                _isbn = _isbn.Replace("\t", "");
+                _isbn = _isbn.Replace("\n", "");
+                if (!long.TryParse(_isbn, out _isbn_Number))
+                {
+                    MessageBox.Show("ISBN could not be parsed as number. Please, make sure you are inputing numeric digits only.");
+                }
+            }
+            //else MessageBox.Show("ISBN is empty.");
+            return _isbn_Number;
+        }
+        public static string SetBookTitle(string _title)
+        {
+            if (!string.IsNullOrWhiteSpace(_title))
+            {
+                _title = _title.Trim();
+                _title = _title.Replace(" ", "");
+                _title = _title.Replace("\t", "");
+                _title = _title.Replace("\n", "");
+                _title = char.ToUpper(_title[0]) + _title.Substring(1);
+            }
+            //else MessageBox.Show("Book Title is empty");
+            return _title;
+        }
+        public static string SetBookAuthor(string _author)
+        {
+            if (!string.IsNullOrWhiteSpace(_author))
+            {
+                _author = _author.Trim();
+                _author = _author.Replace(" ", "");
+                _author = _author.Replace("\t", "");
+                _author = _author.Replace("\n", "");
+                _author = char.ToUpper(_author[0]) + _author.Substring(1);
+            }
+            //else MessageBox.Show("Book Author is empty");
+            return _author;
+        }
+        #endregion
+        #region ORDERS header table
+        public static string SetOrderDate(string _date)
+        {
+            if (!string.IsNullOrWhiteSpace(_date))
+            {
+                _date = _date.Trim();
+                _date = _date.Replace(" ", "");
+                _date = _date.Replace("\t", "");
+                _date = _date.Replace("\n", "");
+            }
+            //else MessageBox.Show("Order Date is empty");
+            return _date;
+        }
+        #endregion
+        #region ORDERS details table
 
+        #endregion
         [System.Text.RegularExpressions.GeneratedRegex(@"\s+")]
         private static partial System.Text.RegularExpressions.Regex Regex_RemoveConsecutiveSpaces();
     }
+
+
 }

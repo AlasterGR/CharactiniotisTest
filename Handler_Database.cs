@@ -33,7 +33,23 @@ namespace CharactiniotisTest
             }
 
         }
+        // Inserting a new book
+        public static void AddBook(long _ISBN, string _Title, string _Author, string _Summary)
+        {
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                string query = "INSERT INTO Books (ISBN, Title, Author, Summary) VALUES (@ISBN, @Title, @Author, @Summary)";
+                NpgsqlCommand command = new NpgsqlCommand(query, connection);
+                command.Parameters.AddWithValue("@ISBN", _ISBN);
+                command.Parameters.AddWithValue("@Title", _Title);
+                command.Parameters.AddWithValue("@Author", _Author);
+                command.Parameters.AddWithValue("@Summary", _Summary);
 
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+
+        }
         public static void UpdateClient(int _clientId, string _firstName, string _lastName, string _address, int _postalCode, long _phoneNumber, string _email)
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))

@@ -13,6 +13,7 @@ namespace CharactiniotisTest
 {
     internal class Handler_CheckIfProperData
     {
+        #region Clients
         public static bool Check_Client_ID_ProperInfo(int _ID)
         {
             bool is_Client_ID_Correct = true;
@@ -23,7 +24,7 @@ namespace CharactiniotisTest
             }
             return is_Client_ID_Correct;
         }
-        public static bool Check_Client_ADD_ProperInfo(string _firstName, string _lastName, string _address, int _postalCode, long _phoneNumber, string _email)
+        public static bool Check_Client_INSERT_ProperInfo(string _firstName, string _lastName, string _address, int _postalCode, long _phoneNumber, string _email)
         {
             //bool allElementsAreProper = true;
             // making sure that the vaslues will be appropriate for the tables' columns
@@ -118,6 +119,43 @@ namespace CharactiniotisTest
             }
             return true;
         }
+        #endregion
+        #region Books
+        public static bool Check_Book_INSERT_ProperInfo(long _ISBN, string _title, string _author)
+        {
+            bool allElementsAreProper = IsValidBookISBN(_ISBN) && IsValidBookTitle(_title) && IsValidBookAuthor(_author) ;
+            return allElementsAreProper;
+        }
+        public static bool IsValidBookISBN(long _ISBN)
+        {
+            if (string.IsNullOrEmpty(_ISBN.ToString()) || !( (_ISBN.ToString().Length == 10) || (_ISBN.ToString().Length == 13) ))
+            {
+                MessageBox.Show("Book ISBN is improper. Please, make sure that you enter a number of 10 or 13 digits for ISBN.");
+                return false;
+            }
+            return true;
+        }
+        public static bool IsValidBookTitle(string _Title)
+        {
+            if (string.IsNullOrEmpty(_Title) || _Title.Length > 100)
+            {
+                MessageBox.Show("Book title is improper. Please, make sure that you only enter up to 100 characters long Title.");
+                return false;
+            }
+            return true;
+        }
+        public static bool IsValidBookAuthor(string _Author)
+        {
+            if (string.IsNullOrEmpty(_Author) || _Author.Length > 50)
+            {
+                MessageBox.Show("Book author is improper. Please, make sure that you only enter up to 50 characters long Author.");
+                return false;
+            }
+            return true;
+        }
+        #endregion
+        #region Orders
+        #endregion
         static private bool isStringAnEmail(string _email)
         {
             if (!string.IsNullOrEmpty(_email))

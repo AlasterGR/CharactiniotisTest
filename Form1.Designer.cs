@@ -29,8 +29,10 @@
         private void InitializeComponent()
         {
             tableLayoutPanel1 = new TableLayoutPanel();
+            dataGridView4 = new DataGridView();
+            label4 = new Label();
+            label3 = new Label();
             label1 = new Label();
-            dataGridView1 = new DataGridView();
             menuStrip1 = new MenuStrip();
             connectToolStripMenuItem = new ToolStripMenuItem();
             addClientToolStripMenuItem = new ToolStripMenuItem();
@@ -48,27 +50,29 @@
             toolStripTextBox7 = new ToolStripTextBox();
             toolStripSeparator1 = new ToolStripSeparator();
             button_Insert = new ToolStripMenuItem();
-            updateCLIENTToolStripMenuItem = new ToolStripMenuItem();
-            clientIDintegerToolStripMenuItem = new ToolStripMenuItem();
-            toolStripTextBox8 = new ToolStripTextBox();
-            firstName50CharsToolStripMenuItem = new ToolStripMenuItem();
-            toolStripTextBox9 = new ToolStripTextBox();
-            lastName50CharsToolStripMenuItem = new ToolStripMenuItem();
-            toolStripTextBox10 = new ToolStripTextBox();
-            toolStripMenuItem7 = new ToolStripMenuItem();
-            toolStripTextBox12 = new ToolStripTextBox();
-            postalCode5DigitsToolStripMenuItem = new ToolStripMenuItem();
-            toolStripTextBox11 = new ToolStripTextBox();
-            phoneNumber10DigitsToolStripMenuItem = new ToolStripMenuItem();
-            toolStripTextBox13 = new ToolStripTextBox();
-            email320CharsToolStripMenuItem = new ToolStripMenuItem();
-            toolStripTextBox14 = new ToolStripTextBox();
-            toolStripSeparator2 = new ToolStripSeparator();
+            insertBOOKToolStripMenuItem = new ToolStripMenuItem();
             toolStripMenuItem6 = new ToolStripMenuItem();
+            toolStripTextBox8 = new ToolStripTextBox();
+            toolStripMenuItem7 = new ToolStripMenuItem();
+            toolStripTextBox9 = new ToolStripTextBox();
+            toolStripMenuItem8 = new ToolStripMenuItem();
+            toolStripTextBox10 = new ToolStripTextBox();
+            toolStripMenuItem9 = new ToolStripMenuItem();
+            toolStripTextBox11 = new ToolStripTextBox();
+            toolStripSeparator2 = new ToolStripSeparator();
+            toolStripMenuItem10 = new ToolStripMenuItem();
+            dataGridView3 = new DataGridView();
+            dataGridView1 = new DataGridView();
+            label2 = new Label();
+            dataGridView2 = new DataGridView();
+            label5 = new Label();
             panel1 = new Panel();
             tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView4).BeginInit();
             menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -76,19 +80,63 @@
             // 
             tableLayoutPanel1.ColumnCount = 1;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.Controls.Add(label1, 0, 2);
-            tableLayoutPanel1.Controls.Add(dataGridView1, 0, 1);
+            tableLayoutPanel1.Controls.Add(dataGridView4, 0, 8);
+            tableLayoutPanel1.Controls.Add(label4, 0, 5);
+            tableLayoutPanel1.Controls.Add(label3, 0, 3);
+            tableLayoutPanel1.Controls.Add(label1, 0, 9);
             tableLayoutPanel1.Controls.Add(menuStrip1, 0, 0);
+            tableLayoutPanel1.Controls.Add(dataGridView3, 0, 6);
+            tableLayoutPanel1.Controls.Add(dataGridView1, 0, 2);
+            tableLayoutPanel1.Controls.Add(label2, 0, 1);
+            tableLayoutPanel1.Controls.Add(dataGridView2, 0, 4);
+            tableLayoutPanel1.Controls.Add(label5, 0, 7);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 3;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 15.9375F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 84.0625F));
+            tableLayoutPanel1.RowCount = 10;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 100F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 94F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             tableLayoutPanel1.Size = new Size(1795, 1055);
             tableLayoutPanel1.TabIndex = 0;
+            // 
+            // dataGridView4
+            // 
+            dataGridView4.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView4.Dock = DockStyle.Fill;
+            dataGridView4.Location = new Point(3, 798);
+            dataGridView4.Name = "dataGridView4";
+            dataGridView4.RowHeadersWidth = 123;
+            dataGridView4.Size = new Size(1789, 159);
+            dataGridView4.TabIndex = 9;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Dock = DockStyle.Left;
+            label4.Location = new Point(3, 530);
+            label4.Name = "label4";
+            label4.Size = new Size(242, 50);
+            label4.TabIndex = 7;
+            label4.Text = "ORDERS table";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Dock = DockStyle.Left;
+            label3.Location = new Point(3, 315);
+            label3.Name = "label3";
+            label3.Size = new Size(224, 50);
+            label3.TabIndex = 6;
+            label3.Text = "BOOKS table";
             // 
             // label1
             // 
@@ -101,40 +149,29 @@
             label1.Text = "System messages";
             label1.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // dataGridView1
-            // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(3, 156);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 123;
-            dataGridView1.Size = new Size(1789, 801);
-            dataGridView1.TabIndex = 1;
-            dataGridView1.CellValueChanged += dataGridView1_CellValueChanged;
-            // 
             // menuStrip1
             // 
             menuStrip1.Dock = DockStyle.Fill;
             menuStrip1.ImageScalingSize = new Size(48, 48);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { connectToolStripMenuItem, addClientToolStripMenuItem, updateCLIENTToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { connectToolStripMenuItem, addClientToolStripMenuItem, insertBOOKToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(1795, 153);
+            menuStrip1.Size = new Size(1795, 100);
             menuStrip1.TabIndex = 2;
             menuStrip1.Text = "menuStrip1";
             // 
             // connectToolStripMenuItem
             // 
             connectToolStripMenuItem.Name = "connectToolStripMenuItem";
-            connectToolStripMenuItem.Size = new Size(179, 149);
+            connectToolStripMenuItem.Size = new Size(179, 96);
             connectToolStripMenuItem.Text = "Connect";
-            connectToolStripMenuItem.Click += connectToolStripMenuItem_Click;
+            connectToolStripMenuItem.Click += Button_CONNECT_Click;
             // 
             // addClientToolStripMenuItem
             // 
             addClientToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripTextBox1, toolStripMenuItem1, toolStripMenuItem2, toolStripMenuItem3, toolStripMenuItem4, toolStripMenuItem5, toolStripSeparator1, button_Insert });
             addClientToolStripMenuItem.Name = "addClientToolStripMenuItem";
-            addClientToolStripMenuItem.Size = new Size(260, 149);
+            addClientToolStripMenuItem.Size = new Size(260, 96);
             addClientToolStripMenuItem.Text = "Insert CLIENT";
             // 
             // toolStripTextBox1
@@ -226,46 +263,47 @@
             button_Insert.Name = "button_Insert";
             button_Insert.Size = new Size(626, 66);
             button_Insert.Text = "INSERT";
-            button_Insert.Click += Button_Insert_Click;
+            button_Insert.Click += Button_Client_Insert_Click;
             // 
-            // updateCLIENTToolStripMenuItem
+            // insertBOOKToolStripMenuItem
             // 
-            updateCLIENTToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { clientIDintegerToolStripMenuItem, firstName50CharsToolStripMenuItem, lastName50CharsToolStripMenuItem, toolStripMenuItem7, postalCode5DigitsToolStripMenuItem, phoneNumber10DigitsToolStripMenuItem, email320CharsToolStripMenuItem, toolStripSeparator2, toolStripMenuItem6 });
-            updateCLIENTToolStripMenuItem.Name = "updateCLIENTToolStripMenuItem";
-            updateCLIENTToolStripMenuItem.Size = new Size(287, 149);
-            updateCLIENTToolStripMenuItem.Text = "Update CLIENT";
+            insertBOOKToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem6, toolStripMenuItem7, toolStripMenuItem8, toolStripMenuItem9, toolStripSeparator2, toolStripMenuItem10 });
+            insertBOOKToolStripMenuItem.Name = "insertBOOKToolStripMenuItem";
+            insertBOOKToolStripMenuItem.Size = new Size(243, 96);
+            insertBOOKToolStripMenuItem.Text = "Insert BOOK";
             // 
-            // clientIDintegerToolStripMenuItem
+            // toolStripMenuItem6
             // 
-            clientIDintegerToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripTextBox8 });
-            clientIDintegerToolStripMenuItem.Name = "clientIDintegerToolStripMenuItem";
-            clientIDintegerToolStripMenuItem.Size = new Size(626, 66);
-            clientIDintegerToolStripMenuItem.Text = "Client ID (integer)";
+            toolStripMenuItem6.DropDownItems.AddRange(new ToolStripItem[] { toolStripTextBox8 });
+            toolStripMenuItem6.Name = "toolStripMenuItem6";
+            toolStripMenuItem6.Size = new Size(367, 66);
+            toolStripMenuItem6.Text = "ISBN";
             // 
             // toolStripTextBox8
             // 
+            toolStripTextBox8.MaxLength = 13;
             toolStripTextBox8.Name = "toolStripTextBox8";
-            toolStripTextBox8.Size = new Size(200, 55);
+            toolStripTextBox8.Size = new Size(300, 55);
             // 
-            // firstName50CharsToolStripMenuItem
+            // toolStripMenuItem7
             // 
-            firstName50CharsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripTextBox9 });
-            firstName50CharsToolStripMenuItem.Name = "firstName50CharsToolStripMenuItem";
-            firstName50CharsToolStripMenuItem.Size = new Size(626, 66);
-            firstName50CharsToolStripMenuItem.Text = "First Name (50 chars)";
+            toolStripMenuItem7.DropDownItems.AddRange(new ToolStripItem[] { toolStripTextBox9 });
+            toolStripMenuItem7.Name = "toolStripMenuItem7";
+            toolStripMenuItem7.Size = new Size(367, 66);
+            toolStripMenuItem7.Text = "Title";
             // 
             // toolStripTextBox9
             // 
-            toolStripTextBox9.MaxLength = 50;
+            toolStripTextBox9.MaxLength = 100;
             toolStripTextBox9.Name = "toolStripTextBox9";
             toolStripTextBox9.Size = new Size(300, 55);
             // 
-            // lastName50CharsToolStripMenuItem
+            // toolStripMenuItem8
             // 
-            lastName50CharsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripTextBox10 });
-            lastName50CharsToolStripMenuItem.Name = "lastName50CharsToolStripMenuItem";
-            lastName50CharsToolStripMenuItem.Size = new Size(626, 66);
-            lastName50CharsToolStripMenuItem.Text = "Last Name (50 chars)";
+            toolStripMenuItem8.DropDownItems.AddRange(new ToolStripItem[] { toolStripTextBox10 });
+            toolStripMenuItem8.Name = "toolStripMenuItem8";
+            toolStripMenuItem8.Size = new Size(367, 66);
+            toolStripMenuItem8.Text = "Author";
             // 
             // toolStripTextBox10
             // 
@@ -273,69 +311,81 @@
             toolStripTextBox10.Name = "toolStripTextBox10";
             toolStripTextBox10.Size = new Size(300, 55);
             // 
-            // toolStripMenuItem7
+            // toolStripMenuItem9
             // 
-            toolStripMenuItem7.DropDownItems.AddRange(new ToolStripItem[] { toolStripTextBox12 });
-            toolStripMenuItem7.Name = "toolStripMenuItem7";
-            toolStripMenuItem7.Size = new Size(626, 66);
-            toolStripMenuItem7.Text = "Address (100 chars)";
-            // 
-            // toolStripTextBox12
-            // 
-            toolStripTextBox12.MaxLength = 100;
-            toolStripTextBox12.Name = "toolStripTextBox12";
-            toolStripTextBox12.Size = new Size(300, 55);
-            // 
-            // postalCode5DigitsToolStripMenuItem
-            // 
-            postalCode5DigitsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripTextBox11 });
-            postalCode5DigitsToolStripMenuItem.Name = "postalCode5DigitsToolStripMenuItem";
-            postalCode5DigitsToolStripMenuItem.Size = new Size(626, 66);
-            postalCode5DigitsToolStripMenuItem.Text = "Postal code (5 digits)";
+            toolStripMenuItem9.DropDownItems.AddRange(new ToolStripItem[] { toolStripTextBox11 });
+            toolStripMenuItem9.Name = "toolStripMenuItem9";
+            toolStripMenuItem9.Size = new Size(367, 66);
+            toolStripMenuItem9.Text = "Summary";
             // 
             // toolStripTextBox11
             // 
-            toolStripTextBox11.MaxLength = 5;
             toolStripTextBox11.Name = "toolStripTextBox11";
             toolStripTextBox11.Size = new Size(300, 55);
-            // 
-            // phoneNumber10DigitsToolStripMenuItem
-            // 
-            phoneNumber10DigitsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripTextBox13 });
-            phoneNumber10DigitsToolStripMenuItem.Name = "phoneNumber10DigitsToolStripMenuItem";
-            phoneNumber10DigitsToolStripMenuItem.Size = new Size(626, 66);
-            phoneNumber10DigitsToolStripMenuItem.Text = "Phone Number (10 digits)";
-            // 
-            // toolStripTextBox13
-            // 
-            toolStripTextBox13.MaxLength = 10;
-            toolStripTextBox13.Name = "toolStripTextBox13";
-            toolStripTextBox13.Size = new Size(300, 55);
-            // 
-            // email320CharsToolStripMenuItem
-            // 
-            email320CharsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripTextBox14 });
-            email320CharsToolStripMenuItem.Name = "email320CharsToolStripMenuItem";
-            email320CharsToolStripMenuItem.Size = new Size(626, 66);
-            email320CharsToolStripMenuItem.Text = "E-mail (320 chars)";
-            // 
-            // toolStripTextBox14
-            // 
-            toolStripTextBox14.MaxLength = 320;
-            toolStripTextBox14.Name = "toolStripTextBox14";
-            toolStripTextBox14.Size = new Size(300, 55);
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(623, 6);
+            toolStripSeparator2.Size = new Size(364, 6);
             // 
-            // toolStripMenuItem6
+            // toolStripMenuItem10
             // 
-            toolStripMenuItem6.Name = "toolStripMenuItem6";
-            toolStripMenuItem6.Size = new Size(626, 66);
-            toolStripMenuItem6.Text = "UPDATE";
-            toolStripMenuItem6.Click += Button_Update_Click;
+            toolStripMenuItem10.Name = "toolStripMenuItem10";
+            toolStripMenuItem10.Size = new Size(367, 66);
+            toolStripMenuItem10.Text = "INSERT";
+            toolStripMenuItem10.Click += Button_Book_Insert_Click;
+            // 
+            // dataGridView3
+            // 
+            dataGridView3.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView3.Dock = DockStyle.Fill;
+            dataGridView3.Location = new Point(3, 583);
+            dataGridView3.Name = "dataGridView3";
+            dataGridView3.RowHeadersWidth = 123;
+            dataGridView3.Size = new Size(1789, 159);
+            dataGridView3.TabIndex = 4;
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Dock = DockStyle.Fill;
+            dataGridView1.Location = new Point(3, 153);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersWidth = 123;
+            dataGridView1.Size = new Size(1789, 159);
+            dataGridView1.TabIndex = 1;
+            dataGridView1.CellValueChanged += Table_CLIENTS_CellValueChanged;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Dock = DockStyle.Left;
+            label2.Location = new Point(3, 100);
+            label2.Name = "label2";
+            label2.Size = new Size(240, 50);
+            label2.TabIndex = 5;
+            label2.Text = "CLIENTS table";
+            // 
+            // dataGridView2
+            // 
+            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView2.Dock = DockStyle.Fill;
+            dataGridView2.Location = new Point(3, 368);
+            dataGridView2.Name = "dataGridView2";
+            dataGridView2.RowHeadersWidth = 123;
+            dataGridView2.Size = new Size(1789, 159);
+            dataGridView2.TabIndex = 3;
+            dataGridView2.CellValueChanged += Table_BOOKS_CellValueChanged;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Dock = DockStyle.Left;
+            label5.Location = new Point(3, 745);
+            label5.Name = "label5";
+            label5.Size = new Size(149, 50);
+            label5.TabIndex = 8;
+            label5.Text = "DETAILS";
             // 
             // panel1
             // 
@@ -358,9 +408,12 @@
             Load += Form1_Load;
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView4).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
             panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -388,22 +441,23 @@
         private ToolStripTextBox toolStripTextBox7;
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripMenuItem button_Insert;
-        private ToolStripMenuItem updateCLIENTToolStripMenuItem;
-        private ToolStripMenuItem clientIDintegerToolStripMenuItem;
-        private ToolStripTextBox toolStripTextBox8;
-        private ToolStripMenuItem firstName50CharsToolStripMenuItem;
-        private ToolStripTextBox toolStripTextBox9;
-        private ToolStripMenuItem lastName50CharsToolStripMenuItem;
-        private ToolStripTextBox toolStripTextBox10;
-        private ToolStripMenuItem postalCode5DigitsToolStripMenuItem;
-        private ToolStripTextBox toolStripTextBox11;
-        private ToolStripMenuItem phoneNumber10DigitsToolStripMenuItem;
-        private ToolStripMenuItem email320CharsToolStripMenuItem;
-        private ToolStripSeparator toolStripSeparator2;
+        private DataGridView dataGridView2;
+        private DataGridView dataGridView3;
+        private Label label4;
+        private Label label3;
+        private Label label2;
+        private DataGridView dataGridView4;
+        private Label label5;
+        private ToolStripMenuItem insertBOOKToolStripMenuItem;
         private ToolStripMenuItem toolStripMenuItem6;
+        private ToolStripTextBox toolStripTextBox8;
         private ToolStripMenuItem toolStripMenuItem7;
-        private ToolStripTextBox toolStripTextBox12;
-        private ToolStripTextBox toolStripTextBox13;
-        private ToolStripTextBox toolStripTextBox14;
+        private ToolStripTextBox toolStripTextBox9;
+        private ToolStripMenuItem toolStripMenuItem8;
+        private ToolStripTextBox toolStripTextBox10;
+        private ToolStripMenuItem toolStripMenuItem9;
+        private ToolStripTextBox toolStripTextBox11;
+        private ToolStripSeparator toolStripSeparator2;
+        private ToolStripMenuItem toolStripMenuItem10;
     }
 }
