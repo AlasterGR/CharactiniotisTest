@@ -83,7 +83,7 @@ namespace CharactiniotisTest
                     table_Clients.Columns["ClientID"].ReadOnly = true; // have the primary key columns non-editable
                     table_Clients.AllowUserToAddRows = false;
                 }));
-            }            
+            }
         }
         private void LoadBooks()
         {
@@ -115,7 +115,7 @@ namespace CharactiniotisTest
                     table_OrdersHeader.Columns["OrderID"].ReadOnly = true; // have the primary key columns non-editable
                     table_OrdersHeader.AllowUserToAddRows = false;
                 }));
-            }            
+            }
         }
         private void LoadDetails()
         {
@@ -185,6 +185,14 @@ namespace CharactiniotisTest
             LoadOrders(); // reload the table
             LoadDetails();
         }
+        private void Button_Order_Append_Click(object sender, EventArgs e)
+        {
+            long order_ID = Handler_TransformData.SetOrderID(toolStripTextBox14.Text);
+            long book_ISBN = Handler_TransformData.SetISBN(toolStripTextBox16.Text);
+            Handler_Database.AppendOrder(order_ID, book_ISBN);
+            LoadOrders(); // reload the table
+            LoadDetails();
+        }
         #endregion
 
         private void Table_CLIENTS_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -221,6 +229,25 @@ namespace CharactiniotisTest
             }
             LoadClients(); // reload the table
         }
+        private void Table_CLIENTS_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+            // Retrieve the ClientID of the deleted row
+            int clientID = Convert.ToInt32(table_Clients.Rows[e.RowIndex].Cells["ClientID"].Value);
+
+            // Delete the corresponding row from the database table
+            string query = "DELETE FROM Clients WHERE ClientID = @ClientID";
+
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                connection.Open();
+                using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ClientID", clientID);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
         private void Table_BOOKS_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             DataGridView table_Books = sender as DataGridView;
@@ -320,5 +347,81 @@ namespace CharactiniotisTest
             }
             LoadDetails(); // reload the table
         }
+
+        private void Table_CLIENTS_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            // Retrieve the ClientID of the deleted row
+            int clientID = Convert.ToInt32(table_Clients.Rows[e.Row.Index].Cells["ClientID"].Value);
+
+            // Delete the corresponding row from the database table
+            string query = "DELETE FROM Clients WHERE ClientID = @ClientID";
+
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                connection.Open();
+                using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ClientID", clientID);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+        private void Table_BOOKS_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            // Retrieve the ID of the deleted row
+            long ISBN = Convert.ToInt64(table_Books.Rows[e.Row.Index].Cells["ISBN"].Value);
+
+            // Delete the corresponding row from the database table
+            string query = "DELETE FROM Books WHERE ISBN = @ISBN";
+
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                connection.Open();
+                using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ISBN", ISBN);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+        private void Table_ORDERHeader_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            // Retrieve the ID of the deleted row
+            int OrderID = Convert.ToInt32(table_OrdersHeader.Rows[e.Row.Index].Cells["OrderID"].Value);
+
+            // Delete the corresponding row from the database table
+            string query = "DELETE FROM OrderHeader WHERE OrderID = @OrderID";
+
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                connection.Open();
+                using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@OrderID", OrderID);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+        private void Table_ORDERDetails_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            // Retrieve the ID of the deleted row
+            int OrderID = Convert.ToInt32(table_OrdersDetails.Rows[e.Row.Index].Cells["OrderID"].Value);
+            long ISBN = Convert.ToInt64(table_OrdersDetails.Rows[e.Row.Index].Cells["ISBN"].Value);
+
+            // Delete the corresponding row from the database table
+            string query = "DELETE FROM OrderDetails WHERE OrderID = @OrderID AND ISBN = @ISBN";
+
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                connection.Open();
+                using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@OrderID", OrderID);
+                    command.Parameters.AddWithValue("@ISBN", ISBN);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
     }
 }

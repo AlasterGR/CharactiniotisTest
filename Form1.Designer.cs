@@ -78,6 +78,13 @@
             dataGridView2 = new DataGridView();
             label5 = new Label();
             panel1 = new Panel();
+            aPPENDOrderToolStripMenuItem = new ToolStripMenuItem();
+            orderIDToolStripMenuItem = new ToolStripMenuItem();
+            iSBNToolStripMenuItem = new ToolStripMenuItem();
+            toolStripSeparator5 = new ToolStripSeparator();
+            toolStripMenuItem11 = new ToolStripMenuItem();
+            toolStripTextBox14 = new ToolStripTextBox();
+            toolStripTextBox16 = new ToolStripTextBox();
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView4).BeginInit();
             menuStrip1.SuspendLayout();
@@ -128,6 +135,7 @@
             dataGridView4.RowHeadersWidth = 123;
             dataGridView4.Size = new Size(1789, 154);
             dataGridView4.TabIndex = 9;
+            dataGridView4.UserDeletingRow += Table_ORDERDetails_UserDeletingRow;
             // 
             // label4
             // 
@@ -164,7 +172,7 @@
             // 
             menuStrip1.Dock = DockStyle.Fill;
             menuStrip1.ImageScalingSize = new Size(48, 48);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { connectToolStripMenuItem, addClientToolStripMenuItem, insertBOOKToolStripMenuItem, createORDERToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { connectToolStripMenuItem, addClientToolStripMenuItem, insertBOOKToolStripMenuItem, createORDERToolStripMenuItem, aPPENDOrderToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(1795, 100);
@@ -396,6 +404,7 @@
             toolStripMenuItem15.Name = "toolStripMenuItem15";
             toolStripMenuItem15.Size = new Size(538, 66);
             toolStripMenuItem15.Text = "Quantity";
+            toolStripMenuItem15.Visible = false;
             // 
             // toolStripTextBox12
             // 
@@ -423,6 +432,7 @@
             dataGridView3.RowHeadersWidth = 123;
             dataGridView3.Size = new Size(1789, 154);
             dataGridView3.TabIndex = 4;
+            dataGridView3.UserDeletingRow += Table_ORDERHeader_UserDeletingRow;
             // 
             // dataGridView1
             // 
@@ -434,6 +444,7 @@
             dataGridView1.Size = new Size(1789, 154);
             dataGridView1.TabIndex = 1;
             dataGridView1.CellValueChanged += Table_CLIENTS_CellValueChanged;
+            dataGridView1.UserDeletingRow += Table_CLIENTS_UserDeletingRow;
             // 
             // label2
             // 
@@ -455,6 +466,7 @@
             dataGridView2.Size = new Size(1789, 154);
             dataGridView2.TabIndex = 3;
             dataGridView2.CellValueChanged += Table_BOOKS_CellValueChanged;
+            dataGridView2.UserDeletingRow += Table_BOOKS_UserDeletingRow;
             // 
             // label5
             // 
@@ -474,6 +486,50 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1795, 1055);
             panel1.TabIndex = 1;
+            // 
+            // aPPENDOrderToolStripMenuItem
+            // 
+            aPPENDOrderToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { orderIDToolStripMenuItem, iSBNToolStripMenuItem, toolStripSeparator5, toolStripMenuItem11 });
+            aPPENDOrderToolStripMenuItem.Name = "aPPENDOrderToolStripMenuItem";
+            aPPENDOrderToolStripMenuItem.Size = new Size(284, 96);
+            aPPENDOrderToolStripMenuItem.Text = "APPEND Order";
+            // 
+            // orderIDToolStripMenuItem
+            // 
+            orderIDToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripTextBox14 });
+            orderIDToolStripMenuItem.Name = "orderIDToolStripMenuItem";
+            orderIDToolStripMenuItem.Size = new Size(538, 66);
+            orderIDToolStripMenuItem.Text = "Order ID";
+            // 
+            // iSBNToolStripMenuItem
+            // 
+            iSBNToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripTextBox16 });
+            iSBNToolStripMenuItem.Name = "iSBNToolStripMenuItem";
+            iSBNToolStripMenuItem.Size = new Size(538, 66);
+            iSBNToolStripMenuItem.Text = "ISBN";
+            // 
+            // toolStripSeparator5
+            // 
+            toolStripSeparator5.Name = "toolStripSeparator5";
+            toolStripSeparator5.Size = new Size(535, 6);
+            // 
+            // toolStripMenuItem11
+            // 
+            toolStripMenuItem11.Name = "toolStripMenuItem11";
+            toolStripMenuItem11.Size = new Size(538, 66);
+            toolStripMenuItem11.Text = "APPEND";
+            toolStripMenuItem11.Click += Button_Order_Append_Click;
+            // 
+            // toolStripTextBox14
+            // 
+            toolStripTextBox14.Name = "toolStripTextBox14";
+            toolStripTextBox14.Size = new Size(300, 55);
+            // 
+            // toolStripTextBox16
+            // 
+            toolStripTextBox16.MaxLength = 13;
+            toolStripTextBox16.Name = "toolStripTextBox16";
+            toolStripTextBox16.Size = new Size(300, 55);
             // 
             // Form1
             // 
@@ -549,5 +605,12 @@
         private ToolStripTextBox toolStripTextBox12;
         private ToolStripSeparator toolStripSeparator4;
         private ToolStripMenuItem toolStripMenuItem16;
+        private ToolStripMenuItem aPPENDOrderToolStripMenuItem;
+        private ToolStripMenuItem orderIDToolStripMenuItem;
+        private ToolStripTextBox toolStripTextBox14;
+        private ToolStripMenuItem iSBNToolStripMenuItem;
+        private ToolStripTextBox toolStripTextBox16;
+        private ToolStripSeparator toolStripSeparator5;
+        private ToolStripMenuItem toolStripMenuItem11;
     }
 }

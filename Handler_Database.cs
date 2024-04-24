@@ -51,28 +51,45 @@ namespace CharactiniotisTest
         }
         public static void CreateOrder(/*long order_ID,*/ long client_ID,/* DateTime order_Date,*/ long book_ISBN/*, int order_Quantity*/)
         {
+            int order_ID = -1; // Initialize orderID to a default value
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
             {
-                string query = "INSERT INTO OrderHeader (ClientID) VALUES (@ClientID)";
+                string query = "INSERT INTO OrderHeader (ClientID) VALUES (@ClientID) RETURNING OrderID";
                 NpgsqlCommand command = new NpgsqlCommand(query, connection);
                 //command.Parameters.AddWithValue("@OrderID", order_ID);
                 command.Parameters.AddWithValue("@ClientID", client_ID);
                 //command.Parameters.AddWithValue("@OrderDate", null);
 
                 connection.Open();
+                //command.ExecuteNonQuery();
+                order_ID = (int)command.ExecuteScalar();
+            }
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                string query = "INSERT INTO OrderDetails (OrderID, ISBN) VALUES (@OrderID, @ISBN)";
+                NpgsqlCommand command = new NpgsqlCommand(query, connection);
+
+                command.Parameters.AddWithValue("@OrderID", order_ID);
+                command.Parameters.AddWithValue("@ISBN", book_ISBN);
+                //command.Parameters.AddWithValue("@Quantity", order_Quantity);
+
+                connection.Open();
                 command.ExecuteNonQuery();
             }
-            //using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
-            //{
-            //    string query = "INSERT INTO OrderDetails (OrderID, ISBN, Quantity) VALUES (@OrderID, @ISBN, @Quantity) WHERE ClientID = @ClientID";
-            //    NpgsqlCommand command = new NpgsqlCommand(query, connection);
-            //    command.Parameters.AddWithValue("@OrderID", order_ID);
-            //    command.Parameters.AddWithValue("@ISBN", book_ISBN);
-            //    command.Parameters.AddWithValue("@Quantity", order_Quantity);
+        }
+        public static void AppendOrder(long order_ID, long book_ISBN)
+        {
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                string query = "INSERT INTO OrderDetails (OrderID, ISBN) VALUES (@OrderID, @ISBN)";
+                NpgsqlCommand command = new NpgsqlCommand(query, connection);
+                command.Parameters.AddWithValue("@OrderID", order_ID);
+                command.Parameters.AddWithValue("@ISBN", book_ISBN);
 
-            //    connection.Open();
-            //    command.ExecuteNonQuery();
-            //}
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+
         }
         public static void UpdateClient(int _clientId, string _firstName, string _lastName, string _address, int _postalCode, long _phoneNumber, string _email)
         {
