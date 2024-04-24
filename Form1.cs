@@ -183,7 +183,7 @@ namespace CharactiniotisTest
                     }
                 }
             }
-            // need to reload the table
+            LoadClients(); // crashes the app, need to fix it or at least show a message prompting the user to reload through the button afterwards... ?
         }
     }    
 }
